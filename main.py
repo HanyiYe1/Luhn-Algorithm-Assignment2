@@ -110,8 +110,6 @@ def validateCreditCard(creditCard):
         numGood = False
         if x % 2 != 0:
           numCheck = int(creditCard[x]) * 2
-          print(creditCard[x])
-          print(numCheck)
           if numCheck < 9:
             evenPartialSum = evenPartialSum + numCheck
           else:
@@ -122,7 +120,8 @@ def validateCreditCard(creditCard):
                 numGood = True
             evenPartialSum = evenPartialSum + numCheck
       finalSum = evenPartialSum + oddPartialSum
-      if finalSum %10 == 0:
+      print(finalSum)
+      if finalSum % 10 == 0:
         valid = True
   except:
     print("error")
@@ -139,7 +138,7 @@ def generateCustomerDataFile():
   fileName = input("Enter file name: ")
   fileName = fileName + ".csv"
   fileLocation = input("Enter file location: ")
-  filePath = fileLocation + fileName + ".csv"
+  filePath = fileLocation + fileName
 
   with open('CustomerData.csv','r') as firstfile, open(filePath,'a') as secondfile:
     # read content from first file
