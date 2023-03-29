@@ -25,17 +25,39 @@ def enterCustomerInfo():
   city = ""
   postalCode = ""
   creditCardNum = ""
-  
+  valid = False
+
+  #First Name
   print("Enter First Name:")
   firstName = getCustomerInfo(firstName)
+  #Last Name
   print("Enter Last Name:")
   lastName = getCustomerInfo(lastName)
+  #City
   print("Enter City:")
   city = getCustomerInfo(city)
-  print("Enter Postal Code:")
-  postalCode = getCustomerInfo(postalCode)
-  print("Enter Credit Card Number:")
-  creditCardNum = getCustomerInfo(creditCardNum)
+  #Postal Code
+  while valid == False:
+    print("Enter Postal Code:")
+    postalCode = getCustomerInfo(postalCode)
+    try:
+      valid = validatePostalCode(postalCode)
+      if valid == True:
+        print("Postal Code Valid.")
+    except:
+      print("Invalid Postal Code. Please enter a valid postal code!")
+    
+  #Credit Card
+  valid = False
+  while valid == False:
+    print("Enter Credit Card Number:")
+    creditCardNum = getCustomerInfo(creditCardNum)
+    try:
+      valid = validateCreditCard(creditCardNum)
+      if valid == True:
+        print("Credit Card Valid.")
+    except:
+      print("Invalid Credit Card. Please enter a valid credit card number.")
 
   f = open("CustomerData.txt", "a")
   f.writelines("\n")
@@ -66,8 +88,9 @@ def validatePostalCode(postalCode):
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
-def validateCreditCard():
-    pass    # Remove this pass statement and add your own code below
+def validateCreditCard(creditCard):
+  valid = True
+  return valid
 
 '''
     This function is to be edited to achieve the task.
@@ -87,8 +110,7 @@ def findLength(text):
   count = 0
   for char in text:
     count += 1
-  return count
-
+  return count  
 
 def getCustomerInfo(info):
   confirmation = False
