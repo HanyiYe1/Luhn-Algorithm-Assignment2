@@ -1,9 +1,7 @@
 # Throughout this project, the use of data structures are not permitted 
 # Minimal built in functions are to be used and the majority of functions must be
 # created yourself
-
 # More packages may be imported in the space below if approved by your instructor
-
 def printMenu():
     print('''
           Customer and Sales System\n
@@ -22,7 +20,29 @@ def printMenu():
     This function may also be broken down further depending on your algorithm/approach
 '''
 def enterCustomerInfo():
-    pass    # Remove this pass statement and add your own code below
+  firstName = ""
+  lastName = ""
+  city = ""
+  postalCode = ""
+  creditCardNum = ""
+  
+  print("Enter First Name:")
+  firstName = getCustomerInfo(firstName)
+  print("Enter Last Name:")
+  lastName = getCustomerInfo(lastName)
+  print("Enter City:")
+  city = getCustomerInfo(city)
+  print("Enter Postal Code:")
+  postalCode = getCustomerInfo(postalCode)
+  print("Enter Credit Card Number:")
+  creditCardNum = getCustomerInfo(creditCardNum)
+
+  f = open("CustomerData.txt", "a")
+  f.writelines("\n")
+  f.writelines([firstName + " | " + lastName + " | " + city + " | " + postalCode + " | " + creditCardNum])
+  f.close()
+
+  temp()
 
 '''
     This function is to be edited to achieve the task.
@@ -30,8 +50,17 @@ def enterCustomerInfo():
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
-def validatePostalCode():
-    pass    # Remove this pass statement and add your own code below
+def validatePostalCode(postalCode):
+  valid = False
+  if findLength(postalCode) < 3:
+    return valid
+  else:
+    with open("postal_codes.csv") as file:
+        for line in file:
+          if postalCode == line[0:3]:
+            valid = True
+            return valid
+  return valid
 
 '''
     This function is to be edited to achieve the task.
@@ -54,10 +83,36 @@ def generateCustomerDataFile():
 ####################################################################
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
 ####################################################################
+def temp():
+  f = open("CustomerData.txt", "r")
+  print(f.read())
+
+def findLength(text):
+  count = 0
+  for char in text:
+    count += 1
+  return count
 
 
-
-
+def getCustomerInfo(info):
+  confirmation = False
+  confirm = ""
+  #Last Name
+  while confirmation == False:
+    invalid = True
+    info = input("-> ")
+    while invalid == True:
+      print("Is " + info + " correct? [Yes/No]")
+      confirm = input("Yes or No: ")
+      if confirm == "Yes":
+        invalid = False
+        confirmation = True
+      if confirm == "No":
+        invalid = False
+      if confirm != "Yes" and confirm != "No":
+        invalid = True
+        
+  return info
 ####################################################################
 #                            MAIN PROGRAM                          #
 #           DO NOT EDIT ANY CODE EXCEPT WHERE INDICATED            #
