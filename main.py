@@ -27,7 +27,7 @@ def enterCustomerInfo():
   postalCode = ""
   creditCardNum = ""
   valid = False
-  '''
+  
   #First Name
   print("Enter First Name:")
   firstName = getCustomerInfo(firstName)
@@ -37,6 +37,7 @@ def enterCustomerInfo():
   #City
   print("Enter City:")
   city = getCustomerInfo(city)
+  
   #Postal Code
   while valid == False:
     print("Enter Postal Code:")
@@ -47,7 +48,7 @@ def enterCustomerInfo():
         print("Postal Code Valid.")
     except:
       print("Invalid Postal Code. Please enter a valid postal code!")
-  '''
+  
   #Credit Card
   valid = False
   while valid == False:
@@ -116,7 +117,7 @@ def validateCreditCard(creditCard):
           else:
             while numGood == False:
               numCheck = str(numCheck)
-              numCheck = int(numCheck[0]) * int(numCheck[1])
+              numCheck = int(numCheck[0]) + int(numCheck[1])
               if numCheck < 9:
                 numGood = True
             evenPartialSum = evenPartialSum + numCheck
@@ -128,8 +129,6 @@ def validateCreditCard(creditCard):
     valid = False
   return valid
 
-#4111111111111111
-#5105105105105100
 '''
     This function is to be edited to achieve the task.
     It is your decision to make this function a procedural or functional type
