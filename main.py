@@ -1,9 +1,9 @@
-# Throughout this project, the use of data structures are not permitted 
+# Throughout this project, the use of data structures are not permitted
 # Minimal built in functions are to be used and the majority of functions must be
 # created yourself
 # More packages may be imported in the space below if approved by your instructor
 def printMenu():
-    print('''
+  print('''
           Customer and Sales System\n
           1. Enter Customer Information\n
           2. Generate Customer data file\n
@@ -13,12 +13,15 @@ def printMenu():
           Enter menu option (1-9)
           ''')
 
+
 '''
     This function is to be edited to achieve the task.
     It is your decision to make this function a procedural or functional type
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
+
+
 def enterCustomerInfo():
   global userId
   firstName = ""
@@ -27,7 +30,7 @@ def enterCustomerInfo():
   postalCode = ""
   creditCardNum = ""
   valid = False
-  
+
   #First Name
   print("Enter First Name:")
   firstName = getCustomerInfo(firstName)
@@ -37,7 +40,7 @@ def enterCustomerInfo():
   #City
   print("Enter City:")
   city = getCustomerInfo(city)
-  
+
   #Postal Code
   while valid == False:
     print("Enter Postal Code:")
@@ -48,7 +51,7 @@ def enterCustomerInfo():
         print("Postal Code Valid.")
     except:
       print("Invalid Postal Code. Please enter a valid postal code!")
-  
+
   #Credit Card
   valid = False
   while valid == False:
@@ -62,9 +65,11 @@ def enterCustomerInfo():
 
   f = open("CustomerData.csv", "a")
   f.writelines("\n")
-  f.writelines("User " + str(userId) + " | " + firstName + " | " + lastName + " | " + city + " | " + postalCode + " | " + creditCardNum)
+  f.writelines("User " + str(userId) + " | " + firstName + " | " + lastName +
+               " | " + city + " | " + postalCode + " | " + creditCardNum)
   f.close()
   userId += 1
+
 
 '''
     This function is to be edited to achieve the task.
@@ -72,17 +77,20 @@ def enterCustomerInfo():
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
+
+
 def validatePostalCode(postalCode):
   valid = False
   if findLength(postalCode) < 3:
     return valid
   else:
     with open("postal_codes.csv") as file:
-        for line in file:
-          if postalCode == line[0:3]:
-            valid = True
-            return valid
+      for line in file:
+        if postalCode == line[0:3]:
+          valid = True
+          return valid
   return valid
+
 
 '''
     This function is to be edited to achieve the task.
@@ -90,6 +98,8 @@ def validatePostalCode(postalCode):
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
+
+
 def validateCreditCard(creditCard):
   valid = True
   try:
@@ -120,13 +130,12 @@ def validateCreditCard(creditCard):
                 numGood = True
             evenPartialSum = evenPartialSum + numCheck
       finalSum = evenPartialSum + oddPartialSum
-      print(finalSum)
       if finalSum % 10 == 0:
         valid = True
   except:
-    print("error")
     valid = False
   return valid
+
 
 '''
     This function is to be edited to achieve the task.
@@ -134,21 +143,26 @@ def validateCreditCard(creditCard):
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
+
+
 def generateCustomerDataFile():
   fileName = input("Enter file name: ")
   fileName = fileName + ".csv"
   fileLocation = input("Enter file location: ")
   filePath = fileLocation + fileName
 
-  with open('CustomerData.csv','r') as firstfile, open(filePath,'a') as secondfile:
+  with open('CustomerData.csv', 'r') as firstfile, open(filePath,
+                                                        'a') as secondfile:
     # read content from first file
     for line in firstfile:
       # append content to second file
       secondfile.write(line)
 
+
 ####################################################################
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
-####################################################################  
+####################################################################
+
 
 def reverseNumber(thing):
   reversed = ""
@@ -158,11 +172,13 @@ def reverseNumber(thing):
     reversed = reversed + thing[x]
   return reversed
 
+
 def findLength(text):
   count = 0
   for char in text:
     count += 1
-  return count  
+  return count
+
 
 def getCustomerInfo(info):
   confirmation = False
@@ -181,8 +197,10 @@ def getCustomerInfo(info):
         invalid = False
       if confirm != "Yes" and confirm != "No":
         invalid = True
-        
+
   return info
+
+
 ####################################################################
 #                            MAIN PROGRAM                          #
 #           DO NOT EDIT ANY CODE EXCEPT WHERE INDICATED            #
@@ -198,20 +216,21 @@ exitCondition = "9"
 userId = 1
 
 while userInput != exitCondition:
-    printMenu()                 # Printing out the main menu
-    userInput = input();        # User selection from the menu
+  printMenu()  # Printing out the main menu
+  userInput = input()
+  # User selection from the menu
 
-    if userInput == enterCustomerOption:
-        # Only the line below may be editted based on the parameter list and how you design the method return
-        # Any necessary variables may be added to this if section, but nowhere else in the code
-        enterCustomerInfo()
+  if userInput == enterCustomerOption:
+    # Only the line below may be editted based on the parameter list and how you design the method return
+    # Any necessary variables may be added to this if section, but nowhere else in the code
+    enterCustomerInfo()
 
-    elif userInput == generateCustomerOption: 
-        # Only the line below may be editted based on the parameter list and how you design the method return
-        generateCustomerDataFile()
+  elif userInput == generateCustomerOption:
+    # Only the line below may be editted based on the parameter list and how you design the method return
+    generateCustomerDataFile()
 
-    else:
-        print("Please type in a valid option (A number from 1-9)")
+  else:
+    print("Please type in a valid option (A number from 1-9)")
 
-#Exits once the user types 
+#Exits once the user types
 print("Program Terminated")
