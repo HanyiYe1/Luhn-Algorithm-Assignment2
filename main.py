@@ -20,6 +20,7 @@ def printMenu():
     This function may also be broken down further depending on your algorithm/approach
 '''
 def enterCustomerInfo():
+  global userId
   firstName = ""
   lastName = ""
   city = ""
@@ -59,10 +60,11 @@ def enterCustomerInfo():
     except:
       print("Invalid Credit Card. Please enter a valid credit card number.")
 
-  f = open("CustomerData.txt", "a")
+  f = open("CustomerData.csv", "a")
   f.writelines("\n")
-  f.writelines([firstName + " | " + lastName + " | " + city + " | " + postalCode + " | " + creditCardNum])
+  f.writelines("User " + str(userId) + " | " + firstName + " | " + lastName + " | " + city + " | " + postalCode + " | " + creditCardNum)
   f.close()
+  userId += 1
 
 '''
     This function is to be edited to achieve the task.
@@ -90,6 +92,9 @@ def validatePostalCode(postalCode):
 '''
 def validateCreditCard(creditCard):
   valid = True
+  if findLength(creditCard) < 9:
+    valid = False
+  
   return valid
 
 '''
@@ -99,7 +104,7 @@ def validateCreditCard(creditCard):
     This function may also be broken down further depending on your algorithm/approach
 '''
 def generateCustomerDataFile():
-  file = open("CustomerData.txt", "r")
+  file = open("CustomerData.csv", "r")
   print(file.read())
 
 ####################################################################
@@ -143,7 +148,7 @@ generateCustomerOption = "2"
 exitCondition = "9"
 
 # More variables for the main may be declared in the space below
-
+userId = 1
 
 while userInput != exitCondition:
     printMenu()                 # Printing out the main menu

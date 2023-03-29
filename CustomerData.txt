@@ -1,4 +1,0 @@
-Customer Data File (First Name | Last Name | City | Postal Code | Credit Card number):
-
-Hanyi | Ye | Markham | 1q2 2e3 | 12345678
-John | Doe | Toronto | T0A | 12345678
