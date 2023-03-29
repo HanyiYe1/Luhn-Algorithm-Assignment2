@@ -42,8 +42,6 @@ def enterCustomerInfo():
   f.writelines([firstName + " | " + lastName + " | " + city + " | " + postalCode + " | " + creditCardNum])
   f.close()
 
-  temp()
-
 '''
     This function is to be edited to achieve the task.
     It is your decision to make this function a procedural or functional type
@@ -78,14 +76,12 @@ def validateCreditCard():
     This function may also be broken down further depending on your algorithm/approach
 '''
 def generateCustomerDataFile():
-    pass    # Remove this pass statement and add your own code below
+  file = open("CustomerData.txt", "r")
+  print(file.read())
 
 ####################################################################
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
-####################################################################
-def temp():
-  f = open("CustomerData.txt", "r")
-  print(f.read())
+####################################################################  
 
 def findLength(text):
   count = 0
