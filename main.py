@@ -27,7 +27,7 @@ def enterCustomerInfo():
   postalCode = ""
   creditCardNum = ""
   valid = False
-
+  '''
   #First Name
   print("Enter First Name:")
   firstName = getCustomerInfo(firstName)
@@ -47,17 +47,16 @@ def enterCustomerInfo():
         print("Postal Code Valid.")
     except:
       print("Invalid Postal Code. Please enter a valid postal code!")
-    
+  '''
   #Credit Card
   valid = False
   while valid == False:
     print("Enter Credit Card Number:")
     creditCardNum = getCustomerInfo(creditCardNum)
-    try:
-      valid = validateCreditCard(creditCardNum)
-      if valid == True:
-        print("Credit Card Valid.")
-    except:
+    valid = validateCreditCard(creditCardNum)
+    if valid == True:
+      print("Credit Card Valid.")
+    else:
       print("Invalid Credit Card. Please enter a valid credit card number.")
 
   f = open("CustomerData.csv", "a")
@@ -92,11 +91,45 @@ def validatePostalCode(postalCode):
 '''
 def validateCreditCard(creditCard):
   valid = True
-  if findLength(creditCard) < 9:
+  try:
+    if findLength(creditCard) < 9:
+      valid = False
+    else:
+      creditCard = reverseNumber(creditCard)
+      #odd numbers
+      oddPartialSum = 0
+      for x in range(findLength(creditCard)):
+        if x % 2 == 0:
+          oddPartialSum = oddPartialSum + int(creditCard[x])
+      #print(oddPartialSum)
+      #even numbers
+      evenPartialSum = 0
+      numCheck = 0
+      for x in range(findLength(creditCard)):
+        numGood = False
+        if x % 2 != 0:
+          numCheck = int(creditCard[x]) * 2
+          print(creditCard[x])
+          print(numCheck)
+          if numCheck < 9:
+            evenPartialSum = evenPartialSum + numCheck
+          else:
+            while numGood == False:
+              numCheck = str(numCheck)
+              numCheck = int(numCheck[0]) * int(numCheck[1])
+              if numCheck < 9:
+                numGood = True
+            evenPartialSum = evenPartialSum + numCheck
+      finalSum = evenPartialSum + oddPartialSum
+      if finalSum %10 == 0:
+        valid = True
+  except:
+    print("error")
     valid = False
-  
   return valid
 
+#4111111111111111
+#5105105105105100
 '''
     This function is to be edited to achieve the task.
     It is your decision to make this function a procedural or functional type
@@ -110,6 +143,14 @@ def generateCustomerDataFile():
 ####################################################################
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
 ####################################################################  
+
+def reverseNumber(thing):
+  reversed = ""
+  length = findLength(thing)
+  for x in range(1, length):
+    x = x * (-1)
+    reversed = reversed + thing[x]
+  return reversed
 
 def findLength(text):
   count = 0
