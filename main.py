@@ -138,13 +138,14 @@ def validateCreditCard(creditCard):
 def generateCustomerDataFile():
   fileName = input("Enter file name: ")
   fileName = fileName + ".csv"
-  with open('CustomerData.csv','r') as firstfile, open(fileName,'a') as secondfile:
+  fileLocation = input("Enter file location: ")
+  filePath = fileLocation + fileName + ".csv"
+
+  with open('CustomerData.csv','r') as firstfile, open(filePath,'a') as secondfile:
     # read content from first file
     for line in firstfile:
-             # append content to second file
-             secondfile.write(line)
-  file = open(fileName, "r")
-  print(file.read())
+      # append content to second file
+      secondfile.write(line)
 
 ####################################################################
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
