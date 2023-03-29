@@ -63,6 +63,8 @@ def enterCustomerInfo():
     else:
       print("Invalid Credit Card. Please enter a valid credit card number.")
 
+  #Add the stuff into a temperary customer data file.
+  userId = getUserId()
   f = open("CustomerData.csv", "a")
   f.writelines("\n")
   f.writelines("User " + str(userId) + " | " + firstName + " | " + lastName +
@@ -81,12 +83,13 @@ def enterCustomerInfo():
 
 def validatePostalCode(postalCode):
   valid = False
+  #Check if the length is less than 3
   if findLength(postalCode) < 3:
     return valid
   else:
     with open("postal_codes.csv") as file:
       for line in file:
-        if postalCode == line[0:3]:
+        if postalCode[0:3] == line[0:3]:
           valid = True
           return valid
   return valid
@@ -103,21 +106,24 @@ def validatePostalCode(postalCode):
 def validateCreditCard(creditCard):
   valid = True
   try:
+    #Find the length
     if findLength(creditCard) < 9:
       valid = False
     else:
+      #Reverse Card Number
       creditCard = reverseNumber(creditCard)
-      #odd numbers
+      #For odd numbers
       oddPartialSum = 0
       for x in range(findLength(creditCard)):
+        #Since x starts from 0, every even x is an odd digit
         if x % 2 == 0:
           oddPartialSum = oddPartialSum + int(creditCard[x])
-      #print(oddPartialSum)
-      #even numbers
+      #For even numbers
       evenPartialSum = 0
       numCheck = 0
       for x in range(findLength(creditCard)):
         numGood = False
+        #Every even digit
         if x % 2 != 0:
           numCheck = int(creditCard[x]) * 2
           if numCheck < 9:
@@ -125,14 +131,20 @@ def validateCreditCard(creditCard):
           else:
             while numGood == False:
               numCheck = str(numCheck)
+              #Add the two digits
               numCheck = int(numCheck[0]) + int(numCheck[1])
+              #Check if the new number is good
               if numCheck < 9:
                 numGood = True
             evenPartialSum = evenPartialSum + numCheck
+      #Final number to check
       finalSum = evenPartialSum + oddPartialSum
       if finalSum % 10 == 0:
         valid = True
+      else:
+        valid = False
   except:
+    #If there is any error in the input
     valid = False
   return valid
 
@@ -146,13 +158,14 @@ def validateCreditCard(creditCard):
 
 
 def generateCustomerDataFile():
+  #Allow the user to create their own file name and choose the file location 
   fileName = input("Enter file name: ")
   fileName = fileName + ".csv"
   fileLocation = input("Enter file location: ")
   filePath = fileLocation + fileName
 
-  with open('CustomerData.csv', 'r') as firstfile, open(filePath,
-                                                        'a') as secondfile:
+  #Copy everything from customer data csv to the user's own file
+  with open('CustomerData.csv', 'r') as firstfile, open(filePath, 'a') as secondfile:
     # read content from first file
     for line in firstfile:
       # append content to second file
@@ -163,31 +176,42 @@ def generateCustomerDataFile():
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
 ####################################################################
 
-
+def getUserId():
+  global userId
+  count = 0
+  with open('CustomerData.csv', 'r') as file:
+    for line in file:
+      count += 1
+  userId = count - 1
+  return userId
+      
+#Reverse a number
 def reverseNumber(thing):
   reversed = ""
   length = findLength(thing)
-  for x in range(1, length):
+  for x in range(1, length + 1):
     x = x * (-1)
     reversed = reversed + thing[x]
   return reversed
 
-
+#Find length of thing
 def findLength(text):
   count = 0
   for char in text:
     count += 1
   return count
 
-
+#Ask for input and confirm if thats what user meant to type
 def getCustomerInfo(info):
   confirmation = False
   confirm = ""
   #Last Name
   while confirmation == False:
     invalid = True
+    #Ask for user input
     info = input("-> ")
     while invalid == True:
+      #Ask for user to double check their info
       print("Is " + info + " correct? [Yes/No]")
       confirm = input("Yes or No: ")
       if confirm == "Yes":
