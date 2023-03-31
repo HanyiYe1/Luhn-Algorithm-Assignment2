@@ -23,7 +23,6 @@ def printMenu():
 
 
 def enterCustomerInfo():
-  global userId
   firstName = ""
   lastName = ""
   city = ""
@@ -70,7 +69,6 @@ def enterCustomerInfo():
   f.writelines("User " + str(userId) + " | " + firstName + " | " + lastName +
                " | " + city + " | " + postalCode + " | " + creditCardNum)
   f.close()
-  userId += 1
 
 
 '''
